@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://o6wy32sct12o"]
 
 [ext_resource type="Script" uid="uid://byqt24nt8vqcl" path="res://characters/player/player.gd" id="1_508ok"]
+[ext_resource type="PackedScene" uid="uid://c72ddb4aq1d8u" path="res://characters/character_mover.tscn" id="2_xxgcw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b886q"]
 
@@ -21,3 +22,5 @@ mesh = SubResource("CapsuleMesh_508ok")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1235930328]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CharacterMover" parent="." unique_id=1662877405 instance=ExtResource("2_xxgcw")]
