@@ -15,8 +15,30 @@ func _ready():
 	if verbose:
 		print("starting health: %s/%s" % [cur_health, max_health])
 	
-func hurt():
-	pass
+func hurt(damage_data: DamageData):
+	if cur_health <= 0:
+		return
+	cur_health -= damage_data.amount
+	if cur_health <= gib_at:
+		gibbed.emit()
+	if cur_health <= 0:
+		died.emit()
+	else:
+		damaged.emit()
+	health_changed.emit(cur_health, max_health)
+	if verbose:
+		print("damaged for %s, health: %s/%s" % [damage_data.amount, cur_health, max_health])
 	
-func heal():
-	pass
+func heal(amount: int):
+	if cur_health <= 0:
+		return
+	cur_health = clamp(cur_health + amount, 0, max_health)
+	healed.emit()
+	health_changed.emit(cur_health, max_health)
+	if verbose:
+		print("healed for %s, health: %s/%s", [amount, cur_health, max_health])
+
+func test_damage():
+	var d = DamageData.new()
+	d.amount = 30
+	hurt(d)
